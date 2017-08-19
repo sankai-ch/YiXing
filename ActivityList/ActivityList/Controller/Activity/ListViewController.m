@@ -21,6 +21,9 @@
     BOOL isLoading;
 }
 
+- (IBAction)switchAction:(UIBarButtonItem *)sender;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *activityTableView;
 
 @property (strong, nonatomic) NSMutableArray *arr;
@@ -528,4 +531,9 @@
     }
 }
 
+- (IBAction)switchAction:(UIBarButtonItem *)sender {
+}
+
+- (IBAction)cityAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
