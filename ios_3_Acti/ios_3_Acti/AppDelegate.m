@@ -40,11 +40,19 @@
     //设置滑动的幅度（中间那扇门打开的宽度）
     _slidingVC.anchorRightPeekAmount = UI_SCREEN_W / 6;
     
+    
     //设置APP入口
     _window.rootViewController = _slidingVC;
+    
+    //注册侧滑按钮被按的监听
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(leftSwitchAction:) name:@"LeftSwitch" object:nil];
+    
     return YES;
 }
-
+//当收到通知后要执行的方法
+- (void)leftSwitchAction: (NSNotification *)note {
+    NSLog(@"侧滑");
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

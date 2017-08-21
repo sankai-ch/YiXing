@@ -532,6 +532,8 @@
 }
 
 - (IBAction)switchAction:(UIBarButtonItem *)sender {
+    //发送注册按钮被按的通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftSwitch" object:nil];
 }
 
 - (IBAction)cityAction:(UIButton *)sender forEvent:(UIEvent *)event {
