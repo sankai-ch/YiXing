@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		113BE101AB8FB2EC1EBC930D /* libPods-ios_3_Acti.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 855AC3C3D2BD52C4770E7934 /* libPods-ios_3_Acti.a */; };
+		6A56C4411F4AC28C00C0D5DF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A56C4431F4AC28C00C0D5DF /* Localizable.strings */; };
 		844DFFC31F482526008E2010 /* CityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844DFFC21F482526008E2010 /* CityTableViewController.m */; };
 		844DFFC61F4825E0008E2010 /* PurchaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844DFFC51F4825E0008E2010 /* PurchaseTableViewController.m */; };
 		844DFFC91F482667008E2010 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844DFFC81F482667008E2010 /* LeftViewController.m */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		1E92D645A74073934B36142E /* Pods-ios_3_Acti.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_3_Acti.release.xcconfig"; path = "Pods/Target Support Files/Pods-ios_3_Acti/Pods-ios_3_Acti.release.xcconfig"; sourceTree = "<group>"; };
+		6A56C4421F4AC28C00C0D5DF /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7F4B883F06526E43FA5D5B0F /* Pods-ios_3_Acti.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_3_Acti.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ios_3_Acti/Pods-ios_3_Acti.debug.xcconfig"; sourceTree = "<group>"; };
 		844DFFC11F482526008E2010 /* CityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityTableViewController.h; sourceTree = "<group>"; };
 		844DFFC21F482526008E2010 /* CityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityTableViewController.m; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				B22C7A3A1F25D1CF00F37C1D /* Info.plist */,
 				8456A5571F47EB1B0043CD63 /* Cities.plist */,
 				B22C7A6B1F25DF7200F37C1D /* PrefixHeader.pch */,
+				6A56C4431F4AC28C00C0D5DF /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				84E78D711F48031C002428D4 /* Member.storyboard in Resources */,
 				8456A5581F47EB1B0043CD63 /* Cities.plist in Resources */,
 				B22C7A311F25D1CF00F37C1D /* Main.storyboard in Resources */,
+				6A56C4411F4AC28C00C0D5DF /* Localizable.strings in Resources */,
 				84E78D741F480350002428D4 /* Issue.storyboard in Resources */,
 				B275444F1F272F0C003623DC /* Detail.storyboard in Resources */,
 			);
@@ -737,6 +741,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6A56C4431F4AC28C00C0D5DF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A56C4421F4AC28C00C0D5DF /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		84E78D6F1F48031C002428D4 /* Member.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

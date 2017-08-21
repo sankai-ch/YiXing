@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  ios_3_Acti
+
+  Created by ll on 2017/8/21.
+  Copyright © 2017年 Education. All rights reserved.
+*/
+"Wuliwuli" = "嘟嘟嘟嘟";
+"NetworkError" = "请保持网络连接畅通";
+"GPSDisabled" = "请打开定位";
+"LocationUnkonw" = "当前位置无法获得";
+"SystemError" = "系统错误";
