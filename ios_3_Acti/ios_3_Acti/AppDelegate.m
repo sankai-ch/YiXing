@@ -38,7 +38,7 @@
     //设置侧滑动画的执行时间
     _slidingVC.defaultTransitionDuration = 0.25; //(单位是秒)
     //设置滑动的幅度（中间那扇门打开的宽度）
-    _slidingVC.anchorLeftPeekAmount = UI_SCREEN_W / 6;
+    _slidingVC.anchorRightPeekAmount = UI_SCREEN_W / 6;
     
     //设置APP入口
     _window.rootViewController = _slidingVC;
