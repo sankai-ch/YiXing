@@ -292,7 +292,7 @@
     //将上3句合并
     //cell.activityImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:activity.imgUrl]]];
     //依靠SDWebImage来异步地下载一张远程路径中的图片并三级缓存在项目中，同时为下载的时间周期过程中设置一张临时占位图
-    [cell.activityImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"鄱阳湖"]];
+    [cell.activityImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"png2"]];
     //给图片添加单击手势
     [self addTapGestureRecognizer:cell.activityImageView];
     
@@ -377,7 +377,7 @@
         //将http请求的字符串转换为nsurl
         NSURL *URL = [NSURL URLWithString:activity.imgUrl];
         //依靠SDWebImage来异步地下载一张远程路径中的图片并三级缓存在项目中，同时为下载的时间周期过程中设置一张临时占位图
-        [_zoomIV sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"鄱阳湖"]];
+        [_zoomIV sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"png2"]];
         //设置图片地内容模式
         _zoomIV.contentMode = UIViewContentModeScaleAspectFit;
         //[UIApplication sharedApplication].keyWindow获得窗口实例，并将大图放置到窗口实例上，根据苹果规则，后添加的控件会盖住前面添加的控件

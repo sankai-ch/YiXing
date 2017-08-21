@@ -126,6 +126,7 @@ static StorageMgr * _singletonStorageMgr = nil;
  @abstract  add key and value.
  @result    void;
  */
+
 - (void)addKey:(NSString *)key andValue:(id)value
 {
     @synchronized(self) {
