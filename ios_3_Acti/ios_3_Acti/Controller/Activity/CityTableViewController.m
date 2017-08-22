@@ -9,6 +9,9 @@
 #import "CityTableViewController.h"
 
 @interface CityTableViewController ()
+@property (strong, nonatomic) NSDictionary *cities;
+@property (strong, nonatomic) NSArray *keys;
+- (IBAction)cityAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @end
 
@@ -23,6 +26,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self naviConfig];
+    [self dataInitialize];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +51,32 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
     self.navigationItem.leftBarButtonItem = left;
 }
+
+
+- (void)dataInitialize {
+    //创建文件管理器
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    //获取要读取的文件路径
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"Cities" ofType:@"plist"];
+    //判断路径下是否存在文件
+    if ([fileMgr fileExistsAtPath:filePath]) {
+        //将文件内容读取为对应的格式
+        NSDictionary *fileContent = [NSDictionary dictionaryWithContentsOfFile:filePath];
+        //判断读取到的内容是否存在（判断文件是否损坏）
+        if (fileContent) {
+            NSLog(@"filecontent = %@",fileContent);
+            //NSLog(@"all vla = %@",fileContent.allValues);
+            _cities = fileContent;
+            //提取字典中所有的键
+            NSArray *rawKeys = [fileContent allKeys];
+            NSLog(@"%@",rawKeys);
+            //根据拼音首字母进行能够识别多音字的升序排序
+            _keys = [rawKeys sortedArrayUsingSelector:@selector(localizedStandardCompare:)];
+            
+        }
+    }
+}
+
 //用model的方式返回上一页
 - (void)backAction{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -56,24 +86,57 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return _keys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    //获取当前正在渲染的组的名称
+    NSString *key = _keys[section];
+    //根据key值拿到数组
+    NSArray *sectionCity = _cities[key];
+    //
+    
+    
+    return sectionCity.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
+    NSString *key = _keys[indexPath.section];
+    NSLog(@"%@11",key);
+    //根据key值拿到数组
+    NSArray *sectionCity = _cities[key];
+    NSDictionary *city = sectionCity[indexPath.row];
+    cell.textLabel.text = city[@"name"];
     return cell;
 }
-*/
+//设置每组的标题文字
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+
+    return _keys[section];
+}
+
+//设置section header的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20.f;
+}
+
+//设置cell的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 40.f;
+}
+
+//选中后的操作
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+}
+//设置右侧快捷键栏
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return _keys;
+}
 
 /*
 // Override to support conditional editing of the table view.
@@ -119,4 +182,6 @@
 }
 */
 
+- (IBAction)cityAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end

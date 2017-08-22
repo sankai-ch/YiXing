@@ -81,6 +81,7 @@
 //每次将要离开这个页面的时候
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [_locMgr stopUpdatingLocation];
 }
 
 //每次离开这个页面
@@ -194,6 +195,27 @@
 
 //这个方法专门做数据的处理
 - (void)dataInitialize{
+    BOOL appInit = NO;
+    if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
+        //是第一次打开APP
+        appInit = YES;
+    } else {
+        if ([Utilities getUserDefaults:@"UserCity"] == nil) {
+            //第一次打开APP
+            appInit = YES;
+        }
+    }
+    if (appInit) {
+        //第一次来到页面将默认城市与记忆城市同步
+        NSString *userCity = _cityBtn.titleLabel.text;
+        [Utilities setUserDefaults:@"UserCity" content:userCity];
+    } else {
+        //不是第一次来到APP则将记忆城市与按钮上的城市名反向同步
+        NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
+        [_cityBtn setTitle:userCity forState:UIControlStateNormal];
+        
+    }
+    
     firstVisit = YES;
     isLoding = NO;
     _arr = [NSMutableArray new];
@@ -234,7 +256,7 @@
         //设置接口地址
         NSString *request = @"/event/list";
         //设置接口入参
-        NSDictionary *prarmeter = @{@"page" : @(page), @"perPage" : @(perPage) };
+        NSDictionary *prarmeter = @{@"page" : @(page), @"perPage" : @(perPage) ,@"city" : _cityBtn.titleLabel.text};
         
         //开始请求
         [RequestAPI requestURL:request withParameters:prarmeter andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
@@ -633,9 +655,17 @@
                 cityStr = [cityStr substringToIndex:cityStr.length - 1];
                 NSLog(@"city = %@",cityStr);
                 if (![_cityBtn.titleLabel.text isEqualToString:cityStr]) {
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否切换到当前城市" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"当前定位到的城市为%@,是否切换？",cityStr] preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        _cityBtn.titleLabel.text = cityStr;
+                        //修改城市按钮标题
+                        [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+                        //删除记忆体
+                        [Utilities removeUserDefaults:@"UserCity"];
+                        //添加记忆体
+                        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+                        //网络请求
+                        [self networkRequest];
+                        
                     }];
                     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
                     [alert addAction:confirm];
