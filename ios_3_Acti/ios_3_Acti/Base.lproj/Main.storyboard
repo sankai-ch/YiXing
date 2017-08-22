@@ -180,7 +180,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1my-SG-ieG">
+                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1my-SG-ieG">
                                     <rect key="frame" x="255" y="7" width="90" height="30"/>
                                     <state key="normal" title="正在获取中..."/>
                                     <connections>
@@ -221,6 +221,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="选择城市" id="Eyy-lQ-IZ9"/>
+                    <connections>
+                        <outlet property="cityBtn" destination="1my-SG-ieG" id="m5t-Py-SOK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bB-XH-4Qq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

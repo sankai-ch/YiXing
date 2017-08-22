@@ -53,6 +53,7 @@
     [self uiLayout];
     [self locationConfig];
     [self dataInitialize];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     
     
     
@@ -653,6 +654,9 @@
                 NSLog(@"locDict = %@",locDict);
                 NSString *cityStr = locDict[@"City"];
                 cityStr = [cityStr substringToIndex:cityStr.length - 1];
+                [[StorageMgr singletonStorageMgr] removeObjectForKey:@"locDict"];
+                //将定位到的城市保存进单例化全局变量
+                [[StorageMgr singletonStorageMgr] addKey:@"locDict" andValue:cityStr];
                 NSLog(@"city = %@",cityStr);
                 if (![_cityBtn.titleLabel.text isEqualToString:cityStr]) {
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"当前定位到的城市为%@,是否切换？",cityStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -677,6 +681,22 @@
         //三秒后关掉开关
         [_locMgr stopUpdatingLocation];
     });
+}
+
+#pragma mark - notification
+
+- (void)checkCityState: (NSNotification *)note {
+    NSString *cityStr = note.object;
+    if (![_cityBtn.titleLabel.text isEqualToString:cityStr]) {
+        //修改城市按钮标题
+        [_cityBtn setTitle:cityStr forState:UIControlStateNormal];
+        //删除记忆体
+        [Utilities removeUserDefaults:@"UserCity"];
+        //添加记忆体
+        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+        //重新执行网络请求
+        [self networkRequest];
+    }
 }
 
 @end
