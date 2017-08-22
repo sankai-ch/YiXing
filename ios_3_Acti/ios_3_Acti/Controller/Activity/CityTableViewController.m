@@ -84,12 +84,12 @@
 }
 
 #pragma mark - Table view data source
-
+//组数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     return _keys.count;
 }
-
+//行数
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //获取当前正在渲染的组的名称
     NSString *key = _keys[section];
@@ -101,7 +101,7 @@
     return sectionCity.count;
 }
 
-
+//表格样式
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
     NSString *key = _keys[indexPath.section];
