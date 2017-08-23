@@ -50,6 +50,7 @@
 		B20A16271F2EF77E00890F74 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B20A161E1F2EF77E00890F74 /* Utilities.m */; };
 		B20A162B1F2EFBC400890F74 /* Openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B20A162A1F2EFBC400890F74 /* Openssl.framework */; };
 		B20A162F1F2EFCA100890F74 /* BasicEncodingRules.m in Sources */ = {isa = PBXBuildFile; fileRef = B20A162E1F2EFCA100890F74 /* BasicEncodingRules.m */; };
+		B21993271F4D4F68002035C7 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21993261F4D4F68002035C7 /* UserModel.m */; };
 		B22C7A281F25D1CF00F37C1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B22C7A271F25D1CF00F37C1D /* main.m */; };
 		B22C7A2B1F25D1CF00F37C1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B22C7A2A1F25D1CF00F37C1D /* AppDelegate.m */; };
 		B22C7A311F25D1CF00F37C1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B22C7A2F1F25D1CF00F37C1D /* Main.storyboard */; };
@@ -159,6 +160,8 @@
 		B20A162A1F2EFBC400890F74 /* Openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Openssl.framework; path = ios_3_Acti/Openssl.framework; sourceTree = "<group>"; };
 		B20A162D1F2EFCA100890F74 /* BasicEncodingRules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicEncodingRules.h; sourceTree = "<group>"; };
 		B20A162E1F2EFCA100890F74 /* BasicEncodingRules.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicEncodingRules.m; sourceTree = "<group>"; };
+		B21993251F4D4F68002035C7 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		B21993261F4D4F68002035C7 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		B22C7A231F25D1CF00F37C1D /* ios_3_Acti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_3_Acti.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B22C7A271F25D1CF00F37C1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B22C7A291F25D1CF00F37C1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -429,6 +432,8 @@
 			isa = PBXGroup;
 			children = (
 				B22C7A651F25D87200F37C1D /* ios_3_Acti.xcdatamodeld */,
+				B21993251F4D4F68002035C7 /* UserModel.h */,
+				B21993261F4D4F68002035C7 /* UserModel.m */,
 				8456A52D1F47E8FC0043CD63 /* Order.h */,
 				8456A52E1F47E8FC0043CD63 /* Order.m */,
 				B2B8AB341F2861560088EC3F /* ActivityModel.h */,
@@ -697,6 +702,7 @@
 				8456A54A1F47E9BA0043CD63 /* MD5DataSigner.m in Sources */,
 				B20A16241F2EF77E00890F74 /* NSString+Crypt.m in Sources */,
 				B20A16271F2EF77E00890F74 /* Utilities.m in Sources */,
+				B21993271F4D4F68002035C7 /* UserModel.m in Sources */,
 				844DFFD21F48275D008E2010 /* SignUpViewController.m in Sources */,
 				B22C7A281F25D1CF00F37C1D /* main.m in Sources */,
 				844DFFC91F482667008E2010 /* LeftViewController.m in Sources */,

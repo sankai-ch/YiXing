@@ -179,18 +179,20 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="avatar" destination="v5b-8Y-zql" id="PqZ-pN-Xvb"/>
+                        <outlet property="loginBtn" destination="EUo-01-pMB" id="xMb-VU-GE4"/>
                         <outlet property="tableView" destination="yjU-hX-gQK" id="KQs-OG-r5f"/>
                         <outlet property="usernameLbl" destination="43r-Ks-PPG" id="25u-UM-rLv"/>
+                        <segue destination="0uZ-Bv-sA2" kind="presentation" identifier="Let2MyAct" id="EcB-l9-dCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a1t-vM-PR6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-258.39999999999998" y="86.806596701649184"/>
         </scene>
-        <!--Sign Up View Controller-->
+        <!--注册-->
         <scene sceneID="Fd6-6a-Gwj">
             <objects>
-                <viewController id="oAK-kP-gdj" customClass="SignUpViewController" sceneMemberID="viewController">
+                <viewController title="注册" id="oAK-kP-gdj" customClass="SignUpViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wq3-Mx-11G"/>
                         <viewControllerLayoutGuide type="bottom" id="Rwd-Ki-d8K"/>
@@ -203,7 +205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a1L-Zg-wyp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-263" y="729"/>
+            <point key="canvasLocation" x="2431" y="722"/>
         </scene>
         <!--登录-->
         <scene sceneID="WLZ-Pr-8tN">
@@ -217,17 +219,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nhu-ta-zGj">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="账号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nhu-ta-zGj">
                                 <rect key="frame" x="15" y="99" width="345" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="yae-LE-WYf" id="m4S-qz-8bJ"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YxZ-8X-euU">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YxZ-8X-euU">
                                 <rect key="frame" x="15" y="149" width="345" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="yae-LE-WYf" id="oqc-FY-GnS"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3x-jf-ajE">
                                 <rect key="frame" x="15" y="219" width="345" height="40"/>
@@ -238,6 +246,9 @@
                                 <state key="normal" title="登录">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="signInAction:forEvent:" destination="yae-LE-WYf" eventType="touchUpInside" id="JQ3-2o-4yI"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aur-z4-AMl">
                                 <rect key="frame" x="15" y="267" width="345" height="26"/>
@@ -245,6 +256,9 @@
                                 <state key="normal" title="还没有账号？点击这儿加入我们吧！">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="oAK-kP-gdj" kind="show" id="QQN-A6-ou7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
@@ -264,6 +278,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="登录" id="bPC-yo-6Ol"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="YxZ-8X-euU" id="jPk-Ep-mqV"/>
+                        <outlet property="usernameTextField" destination="Nhu-ta-zGj" id="fJ4-nB-ogo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mrn-kd-Ojw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -314,7 +332,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xft-Yd-gTJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1340" y="81.409295352323838"/>
+            <point key="canvasLocation" x="729" y="81"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XCi-bp-xvg">

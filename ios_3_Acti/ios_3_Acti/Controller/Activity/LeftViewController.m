@@ -7,7 +7,8 @@
 //
 
 #import "LeftViewController.h"
-
+#import "UserModel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 @interface LeftViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) NSArray *arr;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -16,6 +17,7 @@
 - (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)settingAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet UILabel *actLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 
 @end
@@ -29,7 +31,25 @@
     [self dataInitialize];
     
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //
+    if([Utilities loginCheck]){
+        //已登录
+        _loginBtn.hidden=YES;
+        _usernameLbl.hidden=NO;
+        UserModel *user=[[StorageMgr singletonStorageMgr]objectForKey:@"MemberInfo"];
+        [_avatar sd_setImageWithURL:[NSURL URLWithString:user.avatarUrl] placeholderImage:[UIImage imageNamed:@"Avatar"]];
+        _usernameLbl.text=user.nickname;
+    }
+    else{
+        _loginBtn.hidden=NO;
+        _usernameLbl.hidden=YES;
+        _avatar.image=[UIImage imageNamed:@"Avatar"];
+        _usernameLbl.text=@"游客";
+    }
+       
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -94,6 +114,41 @@
 //选中后的操作
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(indexPath.section==0){
+        if([Utilities loginCheck]){
+            switch (indexPath.row) {
+                case 0:{
+                    [self performSegueWithIdentifier:@"Let2MyAct" sender:self];
+                }
+                    
+                    break;
+                case 1:{
+                    
+                }
+                    break;
+                case 2:{
+                    
+                }
+                    break;
+                case 3:{
+                    
+                }
+                    break;
+                case 4:{
+                    
+                }
+                    break;
+                default:{
+                    
+                }
+                    break;
+            }
+        }else{
+            UINavigationController *signNavi=[Utilities getStoryboardInstance:@"Member" byIdentity:@"SignNavi"];
+            //执行跳转
+            [self presentViewController:signNavi animated:YES completion:nil];
+        }
+    }
 }
 - (IBAction)loginAction:(UIButton *)sender forEvent:(UIEvent *)event {
     //获取要跳转过去的页面
@@ -103,5 +158,12 @@
 }
 
 - (IBAction)settingAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    if([Utilities loginCheck]){
+        
+    }else{
+        UINavigationController *signNavi=[Utilities getStoryboardInstance:@"Member" byIdentity:@"SignNavi"];
+        //执行跳转
+        [self presentViewController:signNavi animated:YES completion:nil];
+    }
 }
 @end
