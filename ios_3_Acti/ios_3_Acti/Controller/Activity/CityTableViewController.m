@@ -173,6 +173,8 @@
     NSArray *sectionCity = _cities[key];
     NSDictionary *city = sectionCity[indexPath.row];
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"ResetHome" object:city[@"name"]] waitUntilDone:YES];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"cityId"];
+    [[StorageMgr singletonStorageMgr] addKey:@"cityId" andValue:city[@"id"]];
     //跳转
     [self dismissViewControllerAnimated:YES completion:nil];
     
