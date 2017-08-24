@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -266,6 +266,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="numsAction:forEvent:" destination="oAK-kP-gdj" eventType="touchUpInside" id="1Af-lZ-XkE"/>
+                                    <action selector="obtainNums:forEvent:" destination="oAK-kP-gdj" eventType="touchUpInside" id="wWq-uX-xKF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ziF-kC-Wwv">
@@ -309,6 +310,7 @@
                     <connections>
                         <outlet property="confirmPwdTextField" destination="jbw-8U-0Qb" id="46R-0Z-rnJ"/>
                         <outlet property="nickNameTextField" destination="gxi-cG-M1q" id="5ZM-7K-cxM"/>
+                        <outlet property="nums" destination="S9k-qQ-by9" id="4CI-KX-GVm"/>
                         <outlet property="numsBtn" destination="lel-ld-TaS" id="Ten-eO-I7F"/>
                         <outlet property="numsTextField" destination="S9k-qQ-by9" id="MBO-Y5-9sv"/>
                         <outlet property="pwdTextField" destination="ijK-5H-rmf" id="I6f-Nb-nrZ"/>
