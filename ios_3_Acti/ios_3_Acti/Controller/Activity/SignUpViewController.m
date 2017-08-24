@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *signUpAction;
 @property (strong,nonatomic) UIActivityIndicatorView *avi;
 @property (strong,nonatomic) NSString *diviceId;
+@property (weak, nonatomic) IBOutlet UITextField *nums;
+- (IBAction)obtainNums:(UIButton *)sender forEvent:(UIEvent *)event;
 
 
 
@@ -114,10 +116,12 @@
     }
     //判断某个字符串中是否每个字符都是数字
     NSCharacterSet *notDigits = [[NSCharacterSet decimalDigitCharacterSet]invertedSet];
+   /*
     if(_numsTextField.text.length == 0 ||[_numsTextField.text rangeOfCharacterFromSet:notDigits].location != NSNotFound) {
         [Utilities popUpAlertViewWithMsg:@"请输入有效的验证码" andTitle:nil onView:self];
         return;
     }
+    */
     if([_userNameTextField.text rangeOfCharacterFromSet:notDigits].location != NSNotFound ){
         [Utilities popUpAlertViewWithMsg:@"请输入有效手机号" andTitle:nil onView:self];
         return;
@@ -129,7 +133,7 @@
 - (void)readyForEncoding{
     _avi = [Utilities getCoverOnView:self.view];
     _diviceId = [Utilities uniqueVendor];
-    NSDictionary *para = @{@"deviceType":@7001,@"deviceId":_diviceId,@"userTel":_userNameTextField.text,@"userPwd":_pwdTextField.text,@"nickname":_nickNameTextField.text,@"city":[[StorageMgr singletonStorageMgr] objectForKey:@"cityId"],@"nums":};
+    NSDictionary *para = @{@"deviceType":@7001,@"deviceId":_diviceId,@"userTel":_userNameTextField.text,@"userPwd":_pwdTextField.text,@"nickname":_nickNameTextField.text,@"city":[[StorageMgr singletonStorageMgr] objectForKey:@"cityId"],@"nums":_nums.text};
 
     //网络请求
     [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
@@ -152,5 +156,72 @@
     
 }
 
+- (void)obtainNumsRequest {
+    NSDictionary *para= @{@"userTel":_userNameTextField.text,@"type":_nums};
+    [RequestAPI requestURL:@"/register/verificationCode" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        if ([responseObject[@"resultFlag"] integerValue] == 8001){
+            NSDictionary *result = responseObject[@"resultFlag"];
+           
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
+}
+
+- (IBAction)obtainNums:(UIButton *)sender forEvent:(UIEvent *)event {
+    NSLog(@"发送验证码..");
+    [Utilities popUpAlertViewWithMsg:@"发送验证码成功" andTitle:@"提示" onView:self];
+    [self sentPhoneCodeTimeMethod];
+    [_numsBtn addTarget:self action:@selector(sentCodeMethod) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_numsBtn];
+    
+}
+
+//发送验证码
+-(void)sentCodeMethod{
+    NSLog(@"发送验证码。。");
+    //计时器发送验证码
+    [self sentPhoneCodeTimeMethod];
+    //调用发送验证码接口-》
+    [self obtainNumsRequest];
+    
+}
+
+-(void)sentPhoneCodeTimeMethod{
+    //倒计时时间 - 60秒
+    __block NSInteger timeOut = 59;
+    //执行队列
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    //计时器 -》dispatch_source_set_timer自动生成
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(timer, ^{
+        if (timeOut <= 0) {
+            dispatch_source_cancel(timer);
+            //主线程设置按钮样式-》
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_numsBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+                [_numsBtn setUserInteractionEnabled:YES];
+            });
+        }else{
+            //开始计时
+            //剩余秒数 seconds
+            NSInteger seconds = timeOut % 60;
+            NSString *strTime = [NSString stringWithFormat:@"%.1ld",seconds];
+            //主线程设置按钮样式
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [UIView beginAnimations:nil context:nil];
+                [UIView setAnimationDuration:1.0];
+                [_numsBtn setTitle:[NSString stringWithFormat:@"%@S后重新发送",strTime] forState:UIControlStateNormal];
+                [UIView commitAnimations];
+                //计时器件不允许点击
+                [_numsBtn setUserInteractionEnabled:NO];
+            });
+            timeOut--;
+        }
+    });
+    dispatch_resume(timer);
+}
 
 @end
