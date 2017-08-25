@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ActivityModel.h"
 @interface PurchaseTableViewController : UITableViewController
-
+@property (strong,nonatomic) ActivityModel *activity;
 @end

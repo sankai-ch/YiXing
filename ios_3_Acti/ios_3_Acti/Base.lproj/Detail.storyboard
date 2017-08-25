@@ -360,7 +360,7 @@
         <!--Purchase Table View Controller-->
         <scene sceneID="ikh-tl-Msc">
             <objects>
-                <tableViewController id="FsS-lg-F5s" customClass="PurchaseTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Purchase" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FsS-lg-F5s" customClass="PurchaseTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="gZf-UE-i70">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
