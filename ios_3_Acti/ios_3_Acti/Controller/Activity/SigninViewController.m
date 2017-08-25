@@ -142,7 +142,7 @@
             //清空密码输入框的内容，细节操作
             _passwordTextField.text=@"";
             //记忆用户名
-            [Utilities setUserDefaults:@"Username" content:_usernameTextField];
+            [Utilities setUserDefaults:@"Username" content:_usernameTextField.text];
             //用model的方式返回上一页，这全是细节操作。
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{
