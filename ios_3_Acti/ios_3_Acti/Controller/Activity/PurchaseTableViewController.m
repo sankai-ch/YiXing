@@ -27,6 +27,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseResultAction:) name:@"AlipayResult" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,27 +38,51 @@
 - (void)naviConfig{
     //设置导航条标题的文字
     self.navigationItem.title = @"活动报名支付";
-    //设置导航条的颜色（风格颜色）
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithTitle:@"支付" style:UIBarButtonItemStylePlain target:self action:@selector(payAction)];
+    //为导航条右上角创建一个按钮
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"支付" style: UIBarButtonItemStylePlain target:self action:@selector(payAction)];
     self.navigationItem.rightBarButtonItem = right;
+}
+//支付按钮
+- (void)payAction{
+    switch (self.tableView.indexPathForSelectedRow.row ) {
+        case 0:{
+            
+            NSString *teadeNo = [GBAlipayManager generateTradeNO];
+            [GBAlipayManager alipayWithProductName:_activity.name amount:_activity.applyFee tradeNO:teadeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@活动报名费",_activity.name] itBPay:@"30"];
+        }
+            break;
+        case 1:{
+        }
+            break;
+        case 2:{
+        }
+            break;
+        default:
+            break;
+    }
     
-    
-    
-    self.navigationController.navigationBar.barTintColor = [UIColor grayColor];
-    //设置导航条标题颜色
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    //设置导航条是否被隐藏
-    self.navigationController.navigationBar.hidden = NO;
-    
-    //设置导航条上按钮的风格颜色
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //设置是否需要毛玻璃效果
-    self.navigationController.navigationBar.translucent = YES;
 }
 
--(void)payAction{
+//当收到通知后要执行的方法
+- (void)purchaseResultAction: (NSNotification *)note {
     
+    NSString *result = note.object;
+    if ([result isEqualToString:@"9000"]) {
+        //成功
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"支付成功" message:@"恭喜您,您已成功完成报名" preferredStyle: UIAlertControllerStyleAlert];
+        UIAlertAction *okAction =[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
+        //失败
+        [Utilities popUpAlertViewWithMsg:[result isEqualToString:@"4000"] ? @"未能成功支付，请确保账户余额充足" : @"您已取消支付" andTitle:@"支付失败" onView:self];
+    }
 }
+
 -(void)uilayout{
     _nameLbl.text = _activity.name;
     _contentLbl.text = _activity.content;
@@ -65,6 +90,10 @@
     //去掉线
     self.tableView.tableFooterView = [UIView new];
     self.tableView.editing = YES;
+    //创建index
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+    //用代码选中表格视图中某个细胞
+    [self.tableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
 -(void)datainitalize{
     _arr = @[@"支付宝支付",@"微信支付",@"银联支付"];
@@ -96,6 +125,11 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     
     return @"支付方式";
+}
+//设置section header的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 20.f;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //遍历表格中所有选中的细胞
